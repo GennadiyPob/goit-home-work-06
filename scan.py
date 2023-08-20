@@ -1,6 +1,7 @@
 '''Функція сканування папок'''
 
 import sys
+import shutil
 from pathlib import Path #Path для ітерування (проходження) по файлам і папкам
 
 '''створюємо списки відповідно до розширення файлів'''
@@ -94,7 +95,7 @@ new_folders = ['IMAGES', 'DOCUMENTS', 'AUDIO', 'VIDEO', 'ARCHIVES']
 
 
 for folder_name in new_folders:
-    folder_path = Path(parent_folder/folder_name)
+    folder_path = Path(parent_folder / folder_name)
     if not folder_path.exists():
         folder_path.mkdir()
         print(f"Папка '{folder_name}' створена.")
@@ -103,6 +104,21 @@ for folder_name in new_folders:
 
 
 '''Сортування файлів по папкам''' 
+
+for file in jpeg_files:
+    shutil.move(file, 'IMAGES')
+
+for file in doc_files:
+    shutil.move(file, 'DOCUMENTS')
+
+for file in music_files:
+    shutil.move(file, 'AUDIO')
+
+for file in video_files:
+    shutil.move(file, 'VIDEO')
+
+for file in archives:
+    shutil.move(file, 'ARCHIVES')
 
 
 
