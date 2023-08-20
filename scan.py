@@ -98,9 +98,9 @@ for folder_name in new_folders:
     folder_path = Path(parent_folder / folder_name)
     if not folder_path.exists():
         folder_path.mkdir()
-        print(f"Папка '{folder_name}' створена.")
-    else:
-        print(f"Папка '{folder_name}' вже існує.")
+        #print(f"Папка '{folder_name}' створена.")
+    #else:
+        #print(f"Папка '{folder_name}' вже існує.")
 
 
 '''Сортування файлів по папкам''' 
