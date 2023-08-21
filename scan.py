@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
 '''Створення папок''' 
 
-parent_folder = path
+parent_folder = Path(sys.argv[1]) 
 
 new_folders = ['IMAGES', 'DOCUMENTS', 'AUDIO', 'VIDEO', 'ARCHIVES']
 
