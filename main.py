@@ -79,13 +79,4 @@ def main(folder_path):
 
     get_folder_objects(folder_path)
 
-    if __name__ == '__main__':
-        path = sys.argv[1]
-        print(f"Start in {path}")
-    return path    
-        
-main(path)
-
-
-
-
+main()

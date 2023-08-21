@@ -76,7 +76,7 @@ if __name__ == '__main__':
     arg = Path(path)                                      #Отримання шляху до файлу у вигляді аргумента. 
     
     scan(arg)
-
+    
     print(f'IMAGES jpeg, jpg, png, svg: {jpeg_files}\n')
     print(f'VIDEO mp4, avi, mov, mkv : {video_files}\n')
     print(f'DOCS docs, doc, txt, xlsx, pptx, pdf : {doc_files}\n')
