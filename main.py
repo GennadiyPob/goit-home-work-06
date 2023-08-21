@@ -79,4 +79,8 @@ def main(folder_path):
 
     get_folder_objects(folder_path)
 
-main()
+
+path = sys.argv[1]                                    #запуск через термінал
+arg = Path(path)   
+
+main(arg)
