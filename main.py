@@ -59,7 +59,7 @@ def main(folder_path):
     remove_empty_folders(folder_path) 
     
     for file in scan.jpeg_files:                    # проходимо по списку файлів зображень
-        hande_file(file, folder_path, "IMAGES")
+        hande_file(file, folder_path, "IMAGES")     # записуємо file за адресою folder_path в папку IMAGES
 
     for file in scan.doc_files:
         hande_file(file, folder_path, "DOCUMENTS")
