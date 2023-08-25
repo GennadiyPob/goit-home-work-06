@@ -44,10 +44,10 @@ def remove_empty_folders(path):                                          #вид
             except OSError:
                 pass
 
-def get_folder_objects(root_path):
-    for folder in root_path.iterdir():
-        if folder.is_dir():
-            remove_empty_folders(folder)
+def get_folder_objects(root_path):                                      #перевірка елементів в папках
+    for folder in root_path.iterdir():                                  #проходження по папкам
+        if folder.is_dir():                                             #вхід якщо елемент папка
+            remove_empty_folders(folder)                                #викликаємо функцію перевірки і видалення пустої папки
             try:
                 folder.rmdir()
             except OSError:
