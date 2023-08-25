@@ -43,41 +43,46 @@ registered_extensions = {
 
 #ф-ція обробки розширень
 def get_extensions(file_name):                  #отримуємо ім'я файлу
-    return Path(file_name).suffix[1:].upper()   #працюємо з суфіксом (розширенням) файлу  
+    return Path(file_name).suffix[1:].upper()   #працюємо з суфіксом (беремо розширення) файлу  
 
 '''сканування папок'''
 def scan(folder):
-    for item in folder.iterdir():                #проходимо по файлам папки
-        if item.is_dir():                        #перевірка чи ми в папці
+    for item in folder.iterdir():                #проходимо по всім елементам папки
+        if item.is_dir():                        #перевірка чи є елемент папцкою
             if item.name not in ('IMAGES' , 'DOCUMENTS', 'AUDIO', 'VIDEO', 'ARCHIVES'):  #ігноруємо папки для відсортованих файлів
                 folders.append(item)             #додаємо назву пройденого каталогу в список
                 scan(item)                       #скануємо папку                   
-            continue
+            continue                             #якщо папка зі списку то пропускаємо її
 
         #блок роботи з файлами  
-        extension = get_extensions(file_name=item.name)  #працюємо з розширенням
-        new_name = folder/item.name                      #передаємо шлях до файлу  
+        extension = get_extensions(file_name=item.name)  #працюємо з розширенням (відділяємо)
 
-        if not extension:                                #працюємо з файлами без розширення
-            others.append(new_name)                      #Додаємо в список 'OTHERS'
-        else:
+        new_name = folder / item.name                    #new_name - шлях. Передаємо шлях до файлу  
+
+        if not extension:                                #перевіряємо чи є у файла розширення
+            others.append(new_name)                      #додаємо його в список 'OTHERS'
+        
+        else:                                            #працюємо з файлами з розширеннями
             try:
                 container = registered_extensions[extension]
-                extensions.add(extension)                 #зберігаємо відомі розширення
-                container.append(new_name)
-            except KeyError:
+                extensions.add(extension)                 #зберігаємо відомі розширення в множину (set)
+                container.append(new_name)                #додаємо в контейнер ім'я файлу
+            except KeyError:                              #KeyError якщо розширення не знайдено  
                 unknown.add(extension)                    #зберігаємо НЕвідомі розширення
-                others.append(new_name)                   #зберігаємо файла з НЕвідомим розширенням
+                others.append(new_name)                   #зберігаємо файли без розширень
 
-if __name__ == '__main__':
-    path = sys.argv[1]                                    #запуск через термінал
-    print(f'Start in {path}')
 
-    arg = Path(path)                                      #Отримання шляху до файлу у вигляді аргумента. 
+# if __name__ == '__main__':
+#     path = sys.argv[1]                                    #запуск через термінал
+#     print(f'Start in {path}')
+
+#     arg = Path(path)                                      #Отримання шляху до файлу у вигляді аргумента. 
     
-    scan(arg)
-    
-    print(f'IMAGES jpeg, jpg, png, svg: {jpeg_files}\n')
+#     scan(arg)
+
+
+    #друкуємо те що зберегли в контейнерах
+    print(f'IMAGES jpeg, jpg, png, svg: {jpeg_files}\n')    
     print(f'VIDEO mp4, avi, mov, mkv : {video_files}\n')
     print(f'DOCS docs, doc, txt, xlsx, pptx, pdf : {doc_files}\n')
     print(f'MUSIC mp3, ogg, wav, amr: {music_files}\n')
@@ -86,52 +91,39 @@ if __name__ == '__main__':
     print(f'All extensions: {extensions}')
     print(f'unknown extentions: {unknown}\n')
 
-
+ 
 '''Створення папок''' 
 
-parent_folder = Path(sys.argv[1]) 
+# parent_folder = Path(sys.argv[1]) 
 
-new_folders = ['IMAGES', 'DOCUMENTS', 'AUDIO', 'VIDEO', 'ARCHIVES']
+# new_folders = ['IMAGES', 'DOCUMENTS', 'AUDIO', 'VIDEO', 'ARCHIVES']
 
 
-for folder_name in new_folders:
-    folder_path = Path(parent_folder / folder_name)
-    if not folder_path.exists():
-        folder_path.mkdir()
-        #print(f"Папка '{folder_name}' створена.")
-    #else:
-        #print(f"Папка '{folder_name}' вже існує.")
+# for folder_name in new_folders:
+#     folder_path = Path(parent_folder / folder_name)
+#     if not folder_path.exists():
+#         folder_path.mkdir()
+#         print(f"Папка '{folder_name}' створена.")
+#     else:
+#         print(f"Папка '{folder_name}' вже існує.")
 
 
 '''Сортування файлів по папкам''' 
 
-for file in jpeg_files:
-    shutil.move(file, 'IMAGES')
+# for file in jpeg_files:
+#     shutil.move(file, 'IMAGES')
 
-for file in doc_files:
-    shutil.move(file, 'DOCUMENTS')
+# for file in doc_files:
+#     shutil.move(file, 'DOCUMENTS')
 
-for file in music_files:
-    shutil.move(file, 'AUDIO')
+# for file in music_files:
+#     shutil.move(file, 'AUDIO')
 
-for file in video_files:
-    shutil.move(file, 'VIDEO')
+# for file in video_files:
+#     shutil.move(file, 'VIDEO')
 
-for file in archives:
-    shutil.move(file, 'ARCHIVES')
-
-
-
-
-
-
-
-
-
-
-
-
-
+# for file in archives:
+#     shutil.move(file, 'ARCHIVES')
 
 
 
